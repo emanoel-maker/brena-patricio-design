@@ -55,6 +55,7 @@ async function updateAccount(user) {
 
     // Garante que exista apenas um botão Sair
     actions.querySelectorAll('#logout-button, .logout-button').forEach(button => button.remove());
+    actions.querySelectorAll('#logout-button, .logout-button').forEach(button => button.remove());
 
     const logoutButton = document.createElement('button');
     logoutButton.className = 'button button-small logout-button';
