@@ -1,351 +1,377 @@
 :root {
-    color-scheme: light;
     --bg: #F4F1EB;
-    --surface: #FFFEFC;
-    --text: #332B24;
-    --muted: #817568;
-    --accent: #806B50;
+    --surface: #FFFFFF;
+    --text: #211D19;
+    --muted: #806B50;
     --gold: #B08B55;
-    --line: #E3DACE;
-    --soft: #EAE3D8;
-    --hero: linear-gradient(145deg, #E8E0D4, #D5C8B7 52%, #BBA88F);
-    --shadow: 0 18px 55px rgba(57,43,29,.09);
+    --border: #E5DED3;
 }
 
-* { box-sizing: border-box; }
+[data-theme="dark"] {
+    --bg: #211D19;
+    --surface: #302A24;
+    --text: #F4F1EB;
+    --muted: #C5A36D;
+    --gold: #C5A36D;
+    --border: #514538;
+}
 
-html { scroll-behavior: smooth; }
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
 
 body {
     margin: 0;
     background: var(--bg);
     color: var(--text);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
     line-height: 1.6;
 }
 
-a { color: inherit; text-decoration: none; }
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
+/* TOPO */
 .topbar {
-    min-height: 82px;
-    padding: 0 7%;
+    width: 100%;
+    min-height: 88px;
+    padding: 16px 6%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 18px;
-    border-bottom: 1px solid var(--line);
+    gap: 30px;
     background: var(--surface);
+    border-bottom: 1px solid var(--border);
 }
 
-.brand { display: flex; align-items: center; gap: 12px; }
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
 
 .brand-mark {
     width: 48px;
     height: 48px;
     border: 1px solid var(--gold);
     border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font: 19px Georgia, serif;
-    letter-spacing: -3px;
-    padding-right: 3px;
-    color: var(--accent);
-    background: #F8F5EF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-family: Georgia, serif;
+    font-size: 20px;
 }
 
-.brand strong, .brand small { display: block; }
+.brand strong,
+.brand small {
+    display: block;
+}
 
 .brand strong {
-    font: 13px Georgia, serif;
-    letter-spacing: 2.2px;
+    font-size: 14px;
+    letter-spacing: 2px;
 }
 
 .brand small {
-    font-size: 8px;
+    font-size: 9px;
+    letter-spacing: 1px;
     color: var(--muted);
-    letter-spacing: 1.1px;
 }
 
-.topbar nav, .actions {
+nav {
     display: flex;
     align-items: center;
-    gap: 27px;
-    font-size: 13px;
+    gap: 30px;
 }
 
-.topbar nav a:hover, footer a:hover { color: var(--gold); }
+nav a {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+nav a:hover {
+    color: var(--gold);
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon-button {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+}
 
 .button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 22px;
-    padding: 14px 22px;
-    background: var(--text);
-    color: #FFFDF9;
-    border: 1px solid var(--text);
-    border-radius: 3px;
-    font-size: 13px;
+    gap: 12px;
+    padding: 14px 24px;
+    background: var(--gold);
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
-    transition: .2s;
 }
 
-.button:hover {
-    background: var(--accent);
-    border-color: var(--accent);
+.button-small {
+    padding: 11px 18px;
 }
 
-.button-small { padding: 10px 15px; }
-
-.icon-button {
-    border: 1px solid var(--line);
-    background: var(--bg);
-    color: var(--text);
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 18px;
-}
-
+/* DESTAQUE */
 .hero {
-    min-height: 550px;
-    padding: 82px 10%;
+    min-height: 480px;
+    padding: 80px 10%;
     display: grid;
     grid-template-columns: 1.1fr .9fr;
     align-items: center;
-    gap: 8%;
+    gap: 60px;
+}
+
+.hero h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(38px, 5vw, 62px);
+    line-height: 1.15;
+    font-weight: normal;
+}
+
+.hero h1 em,
+.about h2 em {
+    color: var(--gold);
 }
 
 .eyebrow {
-    font-size: 10px;
-    letter-spacing: 2.7px;
     color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 3px;
     font-weight: bold;
 }
 
-.hero h1, .section h2, .about h2 {
-    font: 400 clamp(38px, 5vw, 62px)/1.12 Georgia, 'Times New Roman', serif;
-    margin: 15px 0;
-}
-
-.hero h1 em, .about h2 em {
-    font-weight: 400;
-    color: var(--accent);
-}
-
 .hero-copy > p:not(.eyebrow) {
-    max-width: 430px;
+    max-width: 450px;
     color: var(--muted);
-    margin: 0 0 28px;
+    margin-bottom: 28px;
 }
 
 .hero-art {
-    height: 370px;
-    background: var(--hero);
+    min-height: 300px;
+    background: var(--surface);
+    border: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow);
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(128,107,80,.16);
 }
-
-.hero-art:before, .hero-art:after {
-    content: "";
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    border: 1px solid rgba(255,255,255,.65);
-    border-radius: 50%;
-}
-
-.hero-art:after { width: 330px; height: 330px; }
 
 .hero-monogram {
-    font: italic 112px Georgia, serif;
-    color: rgba(87,69,48,.72);
-    z-index: 1;
-    letter-spacing: -12px;
-    padding-right: 12px;
+    font-family: Georgia, serif;
+    font-size: 110px;
+    color: var(--gold);
 }
 
 .hero-art p {
-    z-index: 1;
     letter-spacing: 4px;
-    font-size: 9px;
-    color: #594936;
+    font-size: 10px;
+    color: var(--muted);
 }
 
-.section { padding: 88px 10%; }
+/* SEÇÕES */
+.section {
+    padding: 80px 8%;
+}
 
 .section-heading {
     text-align: center;
-    margin: 0 auto 38px;
+    margin-bottom: 45px;
 }
 
-.section-heading h2, .about h2 {
-    font-size: 43px;
-    margin: 8px 0;
+.section-heading h2,
+.about h2 {
+    font-family: Georgia, serif;
+    font-size: 38px;
+    font-weight: normal;
+    margin: 10px 0;
 }
 
-.section-heading > p:last-child {
-    color: var(--muted);
-    font-size: 14px;
-}
-
+/* SERVIÇOS */
 .service-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
 }
 
 .service-card {
-    padding: 25px;
+    padding: 28px;
     background: var(--surface);
-    border: 1px solid var(--line);
-    min-height: 145px;
-    transition: .2s;
+    border: 1px solid var(--border);
+    transition: transform .2s, border-color .2s;
 }
 
 .service-card:hover {
-    transform: translateY(-3px);
-    border-color: #C8B28F;
-    box-shadow: var(--shadow);
+    transform: translateY(-4px);
+    border-color: var(--gold);
 }
 
 .service-card h3 {
-    font: 21px Georgia, serif;
-    margin: 0 0 8px;
+    font-family: Georgia, serif;
+    font-size: 21px;
+    font-weight: normal;
 }
 
 .service-card p {
-    font-size: 12px;
     color: var(--muted);
-    margin: 0;
+    font-size: 14px;
 }
 
-.service-card .service-price {
-    display: block;
-    color: var(--accent);
-    margin-top: 13px;
-    font-size: 14px;
+.service-price {
+    color: var(--gold) !important;
+    font-size: 18px !important;
     font-weight: bold;
 }
 
+/* SOBRE */
 .about {
-    padding: 78px 10%;
-    background: var(--soft);
+    padding: 80px 10%;
+    background: var(--surface);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10%;
     align-items: center;
-    border-block: 1px solid var(--line);
+    gap: 60px;
 }
-
-.about h2 { font-size: 40px; }
 
 .about > p {
     color: var(--muted);
-    max-width: 480px;
 }
 
-.booking { background: var(--surface); }
-
+/* AGENDAMENTO */
 .booking-panel {
-    max-width: 800px;
+    max-width: 1000px;
     margin: auto;
-    border: 1px solid var(--line);
-    padding: 32px;
+    padding: 35px;
+    background: var(--surface);
+    border: 1px solid var(--border);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
-    background: var(--bg);
 }
 
-.booking-panel h3 { font: 19px Georgia, serif; }
+.booking-panel h3 {
+    font-family: Georgia, serif;
+    font-weight: normal;
+}
 
 .booking-panel p {
-    font-size: 12px;
     color: var(--muted);
+    font-size: 14px;
 }
 
-.step { color: var(--gold); font: italic 24px Georgia, serif; }
+.step {
+    color: var(--gold);
+    font-size: 13px;
+    letter-spacing: 2px;
+}
 
 .booking-panel .button {
     grid-column: 1 / -1;
     justify-self: center;
 }
 
+/* RODAPÉ */
 footer {
-    padding: 32px 7%;
+    padding: 35px 8%;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
-    font-size: 12px;
+    gap: 20px;
+}
+
+footer p,
+footer > a:last-child {
     color: var(--muted);
-    background: var(--surface);
-    border-top: 1px solid var(--line);
+    font-size: 13px;
 }
 
-[data-theme="dark"] {
-    color-scheme: dark;
-    --bg: #211D19;
-    --surface: #2B2520;
-    --text: #F1E9DF;
-    --muted: #B9AA9B;
-    --accent: #C0A486;
-    --gold: #C5A36D;
-    --line: #493D32;
-    --soft: #332B24;
-    --hero: linear-gradient(145deg, #59483A, #45372D 55%, #302820);
-    --shadow: 0 18px 55px rgba(0,0,0,.24);
+/* CELULAR */
+@media (max-width: 760px) {
+    .topbar {
+        flex-wrap: wrap;
+        padding: 15px 5%;
+        gap: 15px;
+    }
+
+    nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 22px;
+    }
+
+    .actions {
+        margin-left: auto;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 55px 7%;
+        gap: 30px;
+    }
+
+    .service-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .booking-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-panel .button {
+        grid-column: 1;
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
-[data-theme="dark"] .brand-mark {
-    background: #332B24;
-    color: #D0B58E;
-}
+@media (max-width: 450px) {
+    .service-grid {
+        grid-template-columns: 1fr;
+    }
 
-[data-theme="dark"] .button {
-    background: #C5A36D;
-    color: #241D17;
-    border-color: #C5A36D;
-}
+    .brand strong {
+        font-size: 12px;
+    }
 
-[data-theme="dark"] .button:hover {
-    background: #D4B98F;
-    border-color: #D4B98F;
-}
+    .brand small {
+        font-size: 8px;
+    }
 
-[data-theme="dark"] .icon-button {
-    background: var(--surface);
-    color: var(--text);
-}
-
-[data-theme="dark"] .hero-art p { color: #E9D9C4; }
-
-@media (max-width: 720px) {
-    .topbar { padding: 0 5%; min-height: 70px; }
-    .topbar nav { display: none; }
-    .actions { gap: 9px; }
-    .hero { padding: 65px 7%; grid-template-columns: 1fr; gap: 35px; }
-    .hero-art { height: 260px; }
-    .section { padding: 65px 7%; }
-    .service-grid { grid-template-columns: 1fr 1fr; }
-    .about { padding: 60px 7%; grid-template-columns: 1fr; gap: 5px; }
-    .booking-panel { grid-template-columns: 1fr; }
-    .booking-panel .button { grid-column: 1; }
-    footer { padding: 25px 5%; flex-wrap: wrap; }
-    footer p { order: 3; width: 100%; }
-}
-
-@media (max-width: 420px) {
-    .service-grid { grid-template-columns: 1fr; }
-    .brand strong { font-size: 11px; }
-    .brand small { font-size: 7px; }
-    .button-small { font-size: 11px; padding: 9px; }
+    .button-small {
+        padding: 9px 12px;
+        font-size: 12px;
+    }
 }
