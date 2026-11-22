@@ -243,3 +243,30 @@ html[data-theme="dark"] .google-button:hover {
         font-size: 12px;
     }
 }
+
+.google-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    color: #9A8D7B;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.google-divider::before,
+.google-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #DED6CA;
+}
+
+html[data-theme="dark"] .google-divider {
+    color: #B8A88F;
+}
+
+html[data-theme="dark"] .google-divider::before,
+html[data-theme="dark"] .google-divider::after {
+    background: #514638;
+}
