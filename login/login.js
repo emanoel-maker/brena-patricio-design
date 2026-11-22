@@ -15,6 +15,27 @@ const formMessage = document.getElementById('form-message');
 const registerOption = document.getElementById('register-option');
 const loginOption = document.getElementById('login-option');
 const googleButton = document.getElementById('google-login');
+const googleDivider = document.querySelector('.google-divider');
+
+// Sincronizar tema
+function updateTheme() {
+    const theme = localStorage.getItem('bp-theme') || 'light';
+
+    document.documentElement.dataset.theme = theme;
+
+    document.querySelector('meta[name="theme-color"]')
+        ?.setAttribute('content', theme === 'dark' ? '#211D19' : '#F4F1EB');
+}
+
+updateTheme();
+
+window.addEventListener('pageshow', updateTheme);
+
+window.addEventListener('storage', (event) => {
+    if (event.key === 'bp-theme') {
+        updateTheme();
+    }
+});
 
 function showMessage(message, isError = false) {
     formMessage.textContent = message;
@@ -31,6 +52,9 @@ document.getElementById('show-register').addEventListener('click', (event) => {
     registerOption.hidden = true;
     loginOption.hidden = false;
 
+    googleButton.hidden = true;
+    googleDivider.hidden = true;
+
     formTitle.textContent = 'Crie sua conta';
     formDescription.textContent = 'Cadastre-se para solicitar seus agendamentos.';
 
@@ -46,6 +70,9 @@ document.getElementById('show-login').addEventListener('click', (event) => {
 
     loginOption.hidden = true;
     registerOption.hidden = false;
+
+    googleButton.hidden = false;
+    googleDivider.hidden = false;
 
     formTitle.textContent = 'Entre na sua conta';
     formDescription.textContent = 'Acesse sua conta para acompanhar seus agendamentos.';
