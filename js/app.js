@@ -1,5 +1,5 @@
 import { loadServices } from './agendamentos.js';
-import { signIn, signUp } from './auth.js';
+import { supabase } from './supabase.js';
 
 const themeButton = document.getElementById('theme-toggle');
 
@@ -19,74 +19,85 @@ function toggleTheme() {
     document.documentElement.dataset.theme = newTheme;
     localStorage.setItem('bp-theme', newTheme);
 
-    themeButton.textContent = newTheme === 'dark' ? '☀' : '☾';
+    if (themeButton) {
+        themeButton.textContent = newTheme === 'dark' ? '☀' : '☾';
+    }
 }
 
 if (themeButton) {
     themeButton.addEventListener('click', toggleTheme);
 }
 
+async function updateAccount(user) {
+    const actions = document.querySelector('.actions');
+    const loginLink = actions?.querySelector('a[href="login/login.html"]');
+
+    if (!actions || !loginLink) return;
+
+    let logoutButton = document.getElementById('logout-button');
+
+    if (!user) {
+        loginLink.textContent = 'Entrar';
+        loginLink.href = 'login/login.html';
+
+        logoutButton?.remove();
+        return;
+    }
+
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('full_name, role')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+    loginLink.textContent = profile?.full_name || user.email;
+    loginLink.href = '#';
+    loginLink.title = profile?.role === 'admin'
+        ? 'Administrador'
+        : 'Minha conta';
+
+    if (!logoutButton) {
+        logoutButton = document.createElement('button');
+        logoutButton.id = 'logout-button';
+        logoutButton.className = 'button button-small';
+        logoutButton.textContent = 'Sair';
+
+        actions.appendChild(logoutButton);
+    }
+
+    logoutButton.onclick = async () => {
+        const { error } = await supabase.auth.signOut();
+
+        if (error) {
+            alert('Não foi possível sair da conta.');
+            return;
+        }
+
+        window.location.reload();
+    };
+}
+
+async function checkAccount() {
+    const { data, error } = await supabase.auth.getUser();
+
+    if (error) {
+        console.error('Erro ao verificar conta:', error);
+        return;
+    }
+
+    await updateAccount(data.user);
+}
+
 loadTheme();
 loadServices();
+checkAccount();
 
-const loginForm = document.getElementById('login-form');
-const registerForm = document.getElementById('register-form');
-const registerArea = document.getElementById('register-area');
-const loginArea = document.querySelector('.login-form');
-
-document.getElementById('show-register')?.addEventListener('click', (event) => {
-    event.preventDefault();
-    loginArea.hidden = true;
-    registerArea.hidden = false;
-});
-
-document.getElementById('show-login')?.addEventListener('click', (event) => {
-    event.preventDefault();
-    registerArea.hidden = true;
-    loginArea.hidden = false;
-});
-
-loginForm?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const message = document.getElementById('login-message');
-    message.textContent = 'Entrando...';
-
-    try {
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-
-        const { error } = await signIn(email, password);
-
-        if (error) throw error;
-
-        message.textContent = 'Login realizado com sucesso!';
-    } catch (error) {
-        message.textContent = 'Erro ao entrar: ' + error.message;
-    }
-});
-
-registerForm?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const message = document.getElementById('register-message');
-    message.textContent = 'Criando conta...';
-
-    try {
-        const name = document.getElementById('register-name').value;
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
-
-        const { error } = await signUp(name, email, password);
-
-        if (error) throw error;
-
-        message.textContent =
-            'Cadastro realizado! Verifique seu e-mail para confirmar a conta.';
-    } catch (error) {
-        message.textContent = 'Erro ao cadastrar: ' + error.message;
-    }
+supabase.auth.onAuthStateChange((_event, session) => {
+    updateAccount(session?.user || null);
 });
 
 const year = document.getElementById('year');
-if (year) year.textContent = new Date().getFullYear();
+
+if (year) {
+    year.textContent = new Date().getFullYear();
+}
