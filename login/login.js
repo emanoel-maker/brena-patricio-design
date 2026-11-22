@@ -1,4 +1,9 @@
-import { signIn, signUp } from '../js/auth.js';
+
+import {
+    signIn,
+    signUp,
+    signInWithGoogle
+} from '../js/auth.js';
 
 const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
@@ -9,12 +14,14 @@ const formMessage = document.getElementById('form-message');
 
 const registerOption = document.getElementById('register-option');
 const loginOption = document.getElementById('login-option');
+const googleButton = document.getElementById('google-login');
 
 function showMessage(message, isError = false) {
     formMessage.textContent = message;
     formMessage.style.color = isError ? '#b42318' : '#806B50';
 }
 
+// Mostrar cadastro
 document.getElementById('show-register').addEventListener('click', (event) => {
     event.preventDefault();
 
@@ -30,6 +37,7 @@ document.getElementById('show-register').addEventListener('click', (event) => {
     showMessage('');
 });
 
+// Mostrar login
 document.getElementById('show-login').addEventListener('click', (event) => {
     event.preventDefault();
 
@@ -45,6 +53,7 @@ document.getElementById('show-login').addEventListener('click', (event) => {
     showMessage('');
 });
 
+// Login com e-mail e senha
 loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -64,11 +73,10 @@ loginForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    showMessage('Login realizado!');
-
     window.location.href = '../index.html';
 });
 
+// Cadastro
 registerForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -90,7 +98,6 @@ registerForm.addEventListener('submit', async (event) => {
     }
 
     if (data?.session) {
-        showMessage('Conta criada com sucesso!');
         window.location.href = '../index.html';
         return;
     }
@@ -98,4 +105,18 @@ registerForm.addEventListener('submit', async (event) => {
     showMessage('Conta criada! Verifique seu e-mail para confirmar o cadastro.');
     button.disabled = false;
     button.textContent = 'Criar minha conta';
+});
+
+// Login com Google
+googleButton.addEventListener('click', async () => {
+    googleButton.disabled = true;
+    googleButton.textContent = 'Conectando ao Google...';
+
+    const { error } = await signInWithGoogle();
+
+    if (error) {
+        showMessage('Não foi possível entrar com Google.', true);
+        googleButton.disabled = false;
+        googleButton.textContent = 'Continuar com Google';
+    }
 });
