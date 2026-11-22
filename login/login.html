@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F4F1EB">
+    <title>Login | Brena Patrício Design</title>
+
+    <link rel="icon" type="image/png" href="../assets/bp-icon.png">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <header class="login-header">
+        <a href="../index.html" class="brand">
+            <span class="brand-mark">BP</span>
+            <span>
+                <strong>BRENA PATRÍCIO</strong>
+                <small>DESIGN DE SOBRANCELHAS & CÍLIOS</small>
+            </span>
+        </a>
+
+        <a href="../index.html" class="back-link">Voltar ao início</a>
+    </header>
+
+    <main class="login-container">
+        <section class="login-card">
+
+            <div class="login-heading">
+                <p class="eyebrow">SEJA BEM-VINDA</p>
+                <h1 id="form-title">Entre na sua conta</h1>
+                <p id="form-description">
+                    Acesse sua conta para acompanhar seus agendamentos.
+                </p>
+            </div>
+
+            <form id="login-form">
+                <label for="login-email">E-mail</label>
+                <input type="email" id="login-email"
+                       placeholder="Digite seu e-mail" required>
+
+                <label for="login-password">Senha</label>
+                <input type="password" id="login-password"
+                       placeholder="Digite sua senha" required>
+
+                <button type="submit" class="submit-button">Entrar</button>
+            </form>
+
+            <form id="register-form" hidden>
+                <label for="register-name">Nome completo</label>
+                <input type="text" id="register-name"
+                       placeholder="Digite seu nome" required>
+
+                <label for="register-email">E-mail</label>
+                <input type="email" id="register-email"
+                       placeholder="Digite seu e-mail" required>
+
+                <label for="register-password">Senha</label>
+                <input type="password" id="register-password"
+                       placeholder="Mínimo de 6 caracteres"
+                       minlength="6" required>
+
+                <button type="submit" class="submit-button">
+                    Criar minha conta
+                </button>
+            </form>
+
+            <p id="form-message" role="status"></p>
+
+            <div class="form-links">
+                <p id="register-option">
+                    Ainda não tem conta?
+                    <a href="#" id="show-register">Criar conta</a>
+                </p>
+
+                <p id="login-option" hidden>
+                    Já tem uma conta?
+                    <a href="#" id="show-login">Entrar</a>
+                </p>
+            </div>
+
+        </section>
+    </main>
+
+    <script type="module" src="login.js"></script>
+</body>
+</html>
