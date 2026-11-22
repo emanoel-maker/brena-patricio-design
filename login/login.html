@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -8,6 +9,16 @@
 
     <link rel="icon" type="image/png" href="../assets/bp-icon.png">
     <link rel="stylesheet" href="login.css">
+
+    <script>
+        const savedTheme = localStorage.getItem('bp-theme') || 'light';
+        document.documentElement.dataset.theme = savedTheme;
+
+        if (savedTheme === 'dark') {
+            document.querySelector('meta[name="theme-color"]')
+                .setAttribute('content', '#211D19');
+        }
+    </script>
 </head>
 <body>
 
@@ -65,6 +76,15 @@
                 </button>
             </form>
 
+            <div class="google-divider">
+                <span>OU</span>
+            </div>
+
+            <button type="button" id="google-login" class="google-button">
+                <img src="https://www.google.com/favicon.ico" alt="">
+                Continuar com Google
+            </button>
+
             <p id="form-message" role="status"></p>
 
             <div class="form-links">
@@ -77,10 +97,6 @@
                     Já tem uma conta?
                     <a href="#" id="show-login">Entrar</a>
                 </p>
-                <button type="button" id="google-login" class="google-button">
-                    <img src="https://www.google.com/favicon.ico" alt="">
-                    Continuar com Google
-                </button>
             </div>
 
         </section>
