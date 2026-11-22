@@ -56,3 +56,12 @@ export async function getUserProfile() {
 
     return data;
 }
+
+export async function signInWithGoogle() {
+    return await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo: 'https://emanoel-maker.github.io/brena-patricio-design/'
+        }
+    });
+}
