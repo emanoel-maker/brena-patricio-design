@@ -270,3 +270,7 @@ html[data-theme="dark"] .google-divider::before,
 html[data-theme="dark"] .google-divider::after {
     background: #514638;
 }
+.google-button[hidden],
+.google-divider[hidden] {
+    display: none !important;
+}
