@@ -34,13 +34,12 @@ async function updateAccount(user) {
 
     if (!actions || !loginLink) return;
 
-    let logoutButton = document.getElementById('logout-button');
+    // Remove botões Sair duplicados
+    actions.querySelectorAll('#logout-button').forEach(button => button.remove());
 
     if (!user) {
         loginLink.textContent = 'Entrar';
         loginLink.href = 'login/login.html';
-
-        logoutButton?.remove();
         return;
     }
 
@@ -52,18 +51,12 @@ async function updateAccount(user) {
 
     loginLink.textContent = profile?.full_name || user.email;
     loginLink.href = '#';
-    loginLink.title = profile?.role === 'admin'
-        ? 'Administrador'
-        : 'Minha conta';
+    loginLink.title = profile?.role === 'admin' ? 'Administrador' : 'Minha conta';
 
-    if (!logoutButton) {
-        logoutButton = document.createElement('button');
-        logoutButton.id = 'logout-button';
-        logoutButton.className = 'button button-small';
-        logoutButton.textContent = 'Sair';
-
-        actions.appendChild(logoutButton);
-    }
+    const logoutButton = document.createElement('button');
+    logoutButton.id = 'logout-button';
+    logoutButton.className = 'button button-small';
+    logoutButton.textContent = 'Sair';
 
     logoutButton.onclick = async () => {
         const { error } = await supabase.auth.signOut();
@@ -75,6 +68,8 @@ async function updateAccount(user) {
 
         window.location.reload();
     };
+
+    actions.appendChild(logoutButton);
 }
 
 async function checkAccount() {
