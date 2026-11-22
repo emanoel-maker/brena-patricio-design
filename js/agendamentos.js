@@ -1,55 +1,34 @@
-const services = [
-    {
-        name: 'Design personalizado',
-        category: 'Sobrancelhas',
-        description: 'Formato pensado para valorizar seus traços naturais.',
-        price: 30
-    },
-    {
-        name: 'Design com henna',
-        category: 'Sobrancelhas',
-        description: 'Definição e preenchimento para um olhar marcante.',
-        price: 40
-    },
-    {
-        name: 'Brow Lamination',
-        category: 'Sobrancelhas',
-        description: 'Alinhamento dos fios para um efeito moderno.',
-        price: 125
-    },
-    {
-        name: 'Lash Lifting',
-        category: 'Cílios',
-        description: 'Curvatura e destaque para os cílios naturais.',
-        price: 125
-    },
-    {
-        name: 'Fio a fio',
-        category: 'Cílios',
-        description: 'Extensão delicada para valorizar o olhar.',
-        price: 125
-    },
-    {
-        name: 'Spa de sobrancelhas',
-        category: 'Cuidados',
-        description: 'Um momento de cuidado e renovação.',
-        price: 20
+import { supabase } from './supabase.js';
+
+export async function loadServices() {
+    const servicesList = document.getElementById('services-list');
+
+    servicesList.innerHTML = '<p>Carregando serviços...</p>';
+
+    const { data, error } = await supabase
+        .from('services')
+        .select('id, name, category, description, price, duration_minutes')
+        .eq('active', true)
+        .order('sort_order');
+
+    if (error) {
+        console.error('Erro ao carregar serviços:', error);
+        servicesList.innerHTML = '<p>Não foi possível carregar os serviços.</p>';
+        return;
     }
-];
 
-export function loadServices() {
-    const container = document.getElementById('services-list');
+    if (!data || data.length === 0) {
+        servicesList.innerHTML = '<p>Nenhum serviço disponível no momento.</p>';
+        return;
+    }
 
-    if (!container) return;
-
-    container.innerHTML = services.map(service => `
+    servicesList.innerHTML = data.map(service => `
         <article class="service-card">
-            <small>${service.category}</small>
             <h3>${service.name}</h3>
-            <p>${service.description}</p>
-            <span class="service-price">
-                R$ ${service.price.toFixed(2).replace('.', ',')}
-            </span>
+            <p>${service.description || ''}</p>
+            <p class="service-price">
+                R$ ${Number(service.price).toFixed(2).replace('.', ',')}
+            </p>
         </article>
     `).join('');
 }
