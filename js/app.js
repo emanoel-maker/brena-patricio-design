@@ -30,16 +30,15 @@ if (themeButton) {
 
 async function updateAccount(user) {
     const actions = document.querySelector('.actions');
-    const loginLink = actions?.querySelector('a[href="login/login.html"]');
+    const loginLink = actions?.querySelector('a[href="login/login.html"], a[data-account-link]');
 
     if (!actions || !loginLink) return;
 
-    // Remove botões Sair duplicados
-    actions.querySelectorAll('#logout-button').forEach(button => button.remove());
-
     if (!user) {
+        actions.querySelectorAll('.logout-button').forEach(button => button.remove());
         loginLink.textContent = 'Entrar';
         loginLink.href = 'login/login.html';
+        loginLink.removeAttribute('data-account-link');
         return;
     }
 
@@ -51,11 +50,14 @@ async function updateAccount(user) {
 
     loginLink.textContent = profile?.full_name || user.email;
     loginLink.href = '#';
+    loginLink.dataset.accountLink = 'true';
     loginLink.title = profile?.role === 'admin' ? 'Administrador' : 'Minha conta';
 
+    // Garante que exista apenas um botão Sair
+    actions.querySelectorAll('.logout-button').forEach(button => button.remove());
+
     const logoutButton = document.createElement('button');
-    logoutButton.id = 'logout-button';
-    logoutButton.className = 'button button-small';
+    logoutButton.className = 'button button-small logout-button';
     logoutButton.textContent = 'Sair';
 
     logoutButton.onclick = async () => {
