@@ -1,105 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#f4f1eb">
-
-    <title>Brena Patrício | Design</title>
-
-    <meta name="description" content="Agendamentos e serviços de beleza de Brena Patrício Design.">
-
-    <link rel="icon" href="assets/icons/favicon.png">
-    <link rel="manifest" href="manifest.json">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F4F1EB">
+  <meta name="description" content="Agende seu horário com Brena Patrício Design.">
+  <title>Brena Patrício Design</title>
+  <link rel="icon" type="image/png" href="assets/bp-icon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
+  <header class="topbar">
+    <a class="brand" href="#inicio">
+      <span class="brand-mark">BP</span>
+      <span>
+        <strong>BRENA PATRÍCIO</strong>
+        <small>DESIGN DE SOBRANCELHAS & CÍLIOS</small>
+      </span>
+    </a>
+    <nav>
+      <a href="#servicos">Serviços</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#agendar">Agendar</a>
+    </nav>
+    <div class="actions">
+      <button id="theme-toggle" class="icon-button" aria-label="Alternar tema">☾</button>
+      <a class="button button-small" href="#agendar">Agendar horário</a>
+    </div>
+  </header>
 
-    <header class="header">
-        <a href="#inicio" class="logo">BP.</a>
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-copy">
+        <p class="eyebrow">BELEZA • CUIDADO • AUTOESTIMA</p>
+        <h1>Realce sua beleza.<br><em>Valorize seu olhar.</em></h1>
+        <p>Procedimentos personalizados para sobrancelhas e cílios, com cuidado em cada detalhe.</p>
+        <a class="button" href="#agendar">Encontre seu horário <span>→</span></a>
+      </div>
+      <div class="hero-art">
+        <div class="hero-monogram">BP</div>
+        <p>BELEZA EM CADA DETALHE</p>
+      </div>
+    </section>
 
-        <nav class="navigation">
-            <a href="#inicio">Início</a>
-            <a href="#servicos">Serviços</a>
-            <a href="#agendamento">Agendamento</a>
-        </nav>
+    <section class="section" id="servicos">
+      <div class="section-heading">
+        <p class="eyebrow">CUIDADOS PERSONALIZADOS</p>
+        <h2>Nossos serviços</h2>
+        <p>Escolha seu procedimento e consulte os valores.</p>
+      </div>
+      <div id="services-list" class="service-grid"></div>
+    </section>
 
-        <button id="theme-toggle" class="theme-button" aria-label="Alternar tema">
-            ☾
-        </button>
-    </header>
+    <section class="about" id="sobre">
+      <div>
+        <p class="eyebrow">PRAZER, BRENA</p>
+        <h2>Mais que um atendimento,<br><em>uma experiência.</em></h2>
+      </div>
+      <p>Meu propósito é valorizar sua beleza natural e oferecer um atendimento acolhedor, cuidadoso e feito especialmente para você.</p>
+    </section>
 
-    <main>
+    <section class="booking section" id="agendar">
+      <div class="section-heading">
+        <p class="eyebrow">RESERVE SEU MOMENTO</p>
+        <h2>Agende seu horário</h2>
+        <p>Entre na sua conta para solicitar um horário. A confirmação será feita pela Brena.</p>
+      </div>
+      <div class="booking-panel">
+        <div><span class="step">01</span><h3>Escolha seu procedimento</h3><p>Veja os serviços e selecione o que deseja realizar.</p></div>
+        <div><span class="step">02</span><h3>Escolha data e horário</h3><p>Consulte os horários disponíveis na agenda.</p></div>
+        <div><span class="step">03</span><h3>Aguarde a confirmação</h3><p>Acompanhe sua solicitação pela sua conta.</p></div>
+        <a class="button" href="#agendar" id="login-cta">Entrar ou criar conta <span>→</span></a>
+      </div>
+    </section>
+  </main>
 
-        <section id="inicio" class="hero">
-            <div class="hero-content">
-                <span class="eyebrow">BRENA PATRÍCIO DESIGN</span>
+  <footer>
+    <a class="brand" href="#inicio">
+      <span class="brand-mark">BP</span>
+      <span><strong>BRENA PATRÍCIO</strong><small>DESIGN DE SOBRANCELHAS & CÍLIOS</small></span>
+    </a>
+    <p>© <span id="year"></span> Brena Patrício Design</p>
+    <a href="https://instagram.com/designbrenapatricio" target="_blank" rel="noreferrer">Instagram ↗</a>
+  </footer>
 
-                <h1>Sua beleza, <span>seu destaque.</span></h1>
-
-                <p>
-                    Realce sua beleza natural com técnicas especializadas
-                    em design de sobrancelhas e extensão de cílios.
-                </p>
-
-                <a href="#servicos" class="button">
-                    CONHEÇA OS SERVIÇOS
-                </a>
-            </div>
-        </section>
-
-        <section id="servicos" class="section">
-            <div class="section-heading">
-                <span class="eyebrow">NOSSOS CUIDADOS</span>
-                <h2>Serviços em destaque</h2>
-                <p>Encontre o cuidado ideal para realçar sua beleza.</p>
-            </div>
-
-            <div id="services-list" class="services-grid">
-                <p>Carregando serviços...</p>
-            </div>
-        </section>
-
-        <section id="agendamento" class="booking section">
-            <span class="eyebrow">SEU MOMENTO</span>
-
-            <h2>Agende seu horário</h2>
-
-            <p>
-                Escolha seu serviço e encontre o melhor horário
-                para você.
-            </p>
-
-            <a href="#servicos" class="button">
-                ESCOLHER SERVIÇO
-            </a>
-        </section>
-
-    </main>
-
-    <footer class="footer">
-        <a href="#inicio" class="footer-logo">Brena Patrício Design</a>
-
-        <p>Beleza, cuidado e autoestima.</p>
-
-        <div class="footer-links">
-            <a href="https://www.instagram.com/designbrenapatricio/" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="https://wa.me/5522981529119" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-        </div>
-
-        <p class="copyright">
-            © 2026 Brena Patrício Design.
-        </p>
-    </footer>
-
-    <script type="module" src="js/app.js"></script>
-
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
