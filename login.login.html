@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#F4F1EB">
+  <title>Entrar | Brena Patrício Design</title>
+  <link rel="icon" type="image/png" href="assets/bp-icon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .auth-page {
+      min-height: 75vh;
+      display: grid;
+      place-items: center;
+      padding: 50px 20px;
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 430px;
+      padding: 35px;
+      background: var(--surface, #fff);
+      border-radius: 18px;
+      box-shadow: 0 10px 35px #00000012;
+    }
+    .auth-card form {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .auth-card input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #b9aa98;
+      border-radius: 8px;
+      font: inherit;
+    }
+    .auth-card label {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .auth-card .button {
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .auth-links {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .auth-links a {
+      color: var(--accent, #806B50);
+      font-weight: 600;
+    }
+    #auth-message {
+      margin-top: 15px;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">BP</span>
+      <span>
+        <strong>BRENA PATRÍCIO</strong>
+        <small>DESIGN DE SOBRANCELHAS & CÍLIOS</small>
+      </span>
+    </a>
+
+    <a class="button button-small" href="index.html">Voltar ao início</a>
+  </header>
+
+  <main class="auth-page">
+    <section class="auth-card">
+      <div class="section-heading">
+        <p class="eyebrow">SEJA BEM-VINDA</p>
+        <h2 id="auth-title">Entre na sua conta</h2>
+        <p id="auth-description">Acesse para solicitar e acompanhar seus horários.</p>
+      </div>
+
+      <form id="login-form">
+        <label for="login-email">E-mail</label>
+        <input id="login-email" type="email" placeholder="Seu e-mail" required>
+
+        <label for="login-password">Senha</label>
+        <input id="login-password" type="password" placeholder="Sua senha" required>
+
+        <button class="button" type="submit">Entrar</button>
+      </form>
+
+      <form id="register-form" hidden>
+        <label for="register-name">Nome completo</label>
+        <input id="register-name" type="text" placeholder="Seu nome" required>
+
+        <label for="register-email">E-mail</label>
+        <input id="register-email" type="email" placeholder="Seu e-mail" required>
+
+        <label for="register-password">Senha</label>
+        <input id="register-password" type="password" minlength="6" placeholder="Mínimo de 6 caracteres" required>
+
+        <button class="button" type="submit">Criar minha conta</button>
+      </form>
+
+      <p id="auth-message" role="status"></p>
+
+      <div class="auth-links">
+        <p id="register-link">
+          Ainda não tem conta?
+          <a href="#" id="show-register">Criar conta</a>
+        </p>
+
+        <p id="login-link" hidden>
+          Já tem uma conta?
+          <a href="#" id="show-login">Entrar</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import { signIn, signUp } from './js/auth.js';
+
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const message = document.getElementById('auth-message');
+
+    function showLogin() {
+      loginForm.hidden = false;
+      registerForm.hidden = true;
+      document.getElementById('login-link').hidden = true;
+      document.getElementById('register-link').hidden = false;
+      document.getElementById('auth-title').textContent = 'Entre na sua conta';
+      document.getElementById('auth-description').textContent =
+        'Acesse para solicitar e acompanhar seus horários.';
+      message.textContent = '';
+    }
+
+    function showRegister() {
+      loginForm.hidden = true;
+      registerForm.hidden = false;
+      document.getElementById('login-link').hidden = false;
+      document.getElementById('register-link').hidden = true;
+      document.getElementById('auth-title').textContent = 'Criar conta';
+      document.getElementById('auth-description').textContent =
+        'Cadastre-se para agendar seus procedimentos.';
+      message.textContent = '';
+    }
+
+    document.getElementById('show-register').addEventListener('click', (e) => {
+      e.preventDefault();
+      showRegister();
+    });
+
+    document.getElementById('show-login').addEventListener('click', (e) => {
+      e.preventDefault();
+      showLogin();
+    });
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      message.textContent = 'Entrando...';
+
+      try {
+        const { error } = await signIn(
+          document.getElementById('login-email').value.trim(),
+          document.getElementById('login-password').value
+        );
+
+        if (error) throw error;
+
+        message.textContent = 'Login realizado! Redirecionando...';
+        window.location.href = 'index.html';
+      } catch (error) {
+        message.textContent = 'Não foi possível entrar: ' + error.message;
+      }
+    });
+
+    registerForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      message.textContent = 'Criando sua conta...';
+
+      try {
+        const { error } = await signUp(
+          document.getElementById('register-name').value.trim(),
+          document.getElementById('register-email').value.trim(),
+          document.getElementById('register-password').value
+        );
+
+        if (error) throw error;
+
+        message.textContent =
+          'Cadastro realizado! Verifique seu e-mail para confirmar a conta.';
+      } catch (error) {
+        message.textContent = 'Não foi possível cadastrar: ' + error.message;
+      }
+    });
+  </script>
+</body>
+</html>
